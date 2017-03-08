@@ -134,6 +134,20 @@ function gsapPlayer(params) {
     'height': '15px',
     'fill'  :  iconColor, 
   });
+  
+  //player box hiding/showing
+  var playerHideTimeOut = 1000;
+  var isOpacityTimerRunning = false;
+  var setPlayerTransparent = function(){
+    isOpacityTimerRunning = true;
+    setTimeout(function(){
+      if(isOpacityTimerRunning) player.style.opacity = 0;
+    }, playerHideTimeOut);
+  }
+  var setPlayerVisible = function(){
+    isOpacityTimerRunning = false;
+    player.style.opacity = '0.8';
+  }
 
   /*------------------------------------------
           timeline particulars
@@ -158,6 +172,9 @@ function gsapPlayer(params) {
   /*------------------------------------------
           event listeners
   -------------------------------------------*/
+  
+  player.addEventListener('mouseleave', setPlayerTransparent);
+  player.addEventListener('mouseover', setPlayerVisible);
 
   slider.addEventListener('input', function() {
     this.setAttribute('value', this.value);
